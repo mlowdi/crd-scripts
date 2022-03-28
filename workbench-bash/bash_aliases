@@ -1,0 +1,23 @@
+# Run a standard check of an iOS backup
+alias ios-check='mvt-ios check-backup \
+    -i ~/indicators/amnestytech/investigations/2021-07-18_nso/pegasus.stix2 \
+    -i ~/indicators/amnestytech/investigations/2021-12-16_cytrox/cytrox.stix2 \
+    -i ~/indicators/stalkerware-indicators/stalkerware.stix2 \
+    --output json'
+
+# Run a full check against every indicator we have
+alias ios-full-check='mvt-ios check-backup \
+    -i ~/indicators/amnestytech/investigations/2021-07-18_nso/pegasus.stix2 \
+    -i ~/indicators/amnestytech/investigations/2021-12-16_cytrox/cytrox.stix2 \
+    -i ~/indicators/stalkerware-indicators/stalkerware.stix2 \
+    -i ~/indicators/big-stix/combined.stix2 \
+    --output json'
+
+# Bundle all investigation documents in a .tar.gz and generate a hash file
+alias tarball='filename=$(basename $(pwd)); \
+    tar cvf $filename.tar.gz ./* \
+    && sha256sum $filename.tar.gz > $filename.tar.gz.sha256sum \
+    && sha256sum --check $filename.tar.gz.sha256sum'
+
+# Make cp a little more effective by replacing it with rsync ;)
+alias cp='rsync --progress --archive --verbose --recursive'
